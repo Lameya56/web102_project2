@@ -1,0 +1,78 @@
+.App {
+  font-family: lobster;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  height: 100vh;
+  background-image: url(./assets/zz.jpg);
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header {
+  margin-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.Flashcard {
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.front {
+  background-color: #3498db;
+  cursor: pointer;
+}
+
+.back {
+  background-color: #CBC3E3;
+  transform: rotateY(180deg);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-top: 50px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
