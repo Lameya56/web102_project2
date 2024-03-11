@@ -65,6 +65,7 @@ const App= () =>{
       <div className="header">
         <h1>Solar System Quiz!</h1>
         <h2>Are you ready to embark on a cosmic journey and test your knowledge of the universe? Prepare to delve into the mysteries of our Solar System with 10 thought-provoking questions. Discover how much you truly know about the wonders of space and challenge yourself to reach for the stars! </h2>
+        <h3>No. of cards: 10</h3>
         </div>
 
       {/* {
