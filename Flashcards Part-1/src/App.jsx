@@ -1,19 +1,45 @@
 import { useState } from 'react'
 import Flashcards from './components/Flashcards' 
 import './App.css'
-
-
+import QuizForm from './components/QuizForm'
 const App= () =>{
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  const[userAnswer, setUserAnswer]=useState('');
+  const [isAnswerCorrect, setIsAnswerCorrect]=useState(null);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [longestStreak, setLongestStreak] = useState(0);
 
   const handleFlip = () => {
     setShowAnswer(!showAnswer);
   };
+  const handleShuffle = () => {
+    const randomIndex = Math.floor(Math.random() * quiz.length);
+    setCurrentCardIndex(randomIndex);
+  };
 
   const handleNextCard = () => {
     setShowAnswer(false);
+    setUserAnswer('');
+    setIsAnswerCorrect(null);
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % quiz.length);
+  };
+  const handlePrevCard = () =>{
+    setShowAnswer(false);
+    setUserAnswer('');
+    setIsAnswerCorrect(null);
+    setCurrentCardIndex((prevIndex)=> (prevIndex-1)% quiz.length);
+  };
+  const handleSubmitAnswer =()=>{
+    if (userAnswer.trim().toLowerCase() === quiz[currentCardIndex].answer.toLowerCase()) {
+      setIsAnswerCorrect(true);
+      setLongestStreak(Math.max(longestStreak, currentStreak + 1));
+    } else {
+      setIsAnswerCorrect(false);
+    }
+  };
+  const handleChangeAnswer = (e) => {
+    setUserAnswer(e.target.value);
   };
 
   const quiz =
@@ -66,6 +92,7 @@ const App= () =>{
         <h1>Solar System Quiz!</h1>
         <h2>Are you ready to embark on a cosmic journey and test your knowledge of the universe? Prepare to delve into the mysteries of our Solar System with 10 thought-provoking questions. Discover how much you truly know about the wonders of space and challenge yourself to reach for the stars! </h2>
         <h3>No. of cards: 10</h3>
+        <p>Current Streak: {currentStreak} Longest Streak: {longestStreak}</p>
         </div>
 
       {/* {
@@ -79,18 +106,30 @@ const App= () =>{
           )
         })
       } */}
+      <div>
       <Flashcards
         question={quiz[currentCardIndex].question}
         answer={quiz[currentCardIndex].answer}
         showAnswer={showAnswer}
         onFlip={handleFlip}
       />
-      <button onClick={handleNextCard}>Next Card</button>
-     
     </div>
+       <QuizForm
+    userAnswer={userAnswer}
+    onChangeAnswer={handleChangeAnswer}
+    onSubmitAnswer={handleSubmitAnswer}
+    isAnswerCorrect={isAnswerCorrect}
+    />
+    <div className="navigation">
+      <button onClick={handlePrevCard}>Previous Card</button>
+      <button onClick={handleNextCard}>Next Card</button>  
+      <button onClick={handleShuffle}>Shuffle</button>
+    </div>
+  </div>
+     
   )
 }
 
-export default App
+export default App;
 
 
